@@ -13,6 +13,7 @@
 
 #include "fillit.h"
 
+//removing tetronmino from the map when its wrong
 void	remove_trm(char **map, char *trm, int col, int row)
 {
 	char	ch;
@@ -37,7 +38,7 @@ void	remove_trm(char **map, char *trm, int col, int row)
 		row++;
 	}
 }
-
+//place tetromino
 void	place(char **map, char *trm, int col, int row)
 {
 	size_t	i;
@@ -63,6 +64,7 @@ void	place(char **map, char *trm, int col, int row)
 	}
 }
 
+//checking the point is safe to put down the tetrominoe
 t_bool	is_safe(char **map, char *trm, int col, int row)
 {
 	size_t	i;
@@ -92,6 +94,7 @@ t_bool	is_safe(char **map, char *trm, int col, int row)
 	return (true);
 }
 
+//solving function
 int		solve(char **tbl, size_t blocks)
 {
 	char	**map;
@@ -110,6 +113,7 @@ int		solve(char **tbl, size_t blocks)
 	return (0);
 }
 
+//resursion part
 t_bool	recursion(char **tbl, char **map, int col, int row)
 {
 	if (!*tbl)

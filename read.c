@@ -23,7 +23,7 @@ void	error(void)
 	ft_putstr("error\n");
 }
 
-//Validating tetronimoes by counding number of '#' and '.' which should be 4 and 16.
+//Validating tetronimoes by counting number of '#' and '.' which should be 4 and 16.
 t_bool	valid_1(char *str, int bytes)
 {
 	int n;
@@ -77,7 +77,7 @@ t_bool	valid_2(char *str, int bytes)
 	return (true);
 }
 
-//Cheking letters in tetrominoes. and integrate Val1 and Val2
+//Cheking letters in tetrominoes are only "#" or ".". and integrate Val1 and Val2
 t_bool	valid_0(char *str, int bytes)
 {
 	bytes++;
@@ -103,21 +103,41 @@ int		main(int argc, char **argv)
 	char	*str;
 	char	**trm_arr;
 	size_t	n_blocks;
-
+//checking num of argv. if it's not 1, print useage and return 0
 	CHK1(argc != 2, ft_putstr("usage: ./fillit source_file\n"), 0);
+
+	//allocating memory on str
 	CHK1((str = ft_strnew(BUFFER_SIZE)) == NULL, error(), 0);
+
+	//read tetromino file
 	CHK2((fd = open(argv[1], O_RDONLY, S_IRUSR)) == -1, free(str), error(), 0);
+
+	//write str with fd
 	CHK3((rd = read(fd, str, BUFFER_SIZE)) < 0, error(), free(str),
 															close(fd), 0);
 	close(fd);
+	//last of str should be 0. if its not, its bigger than the size was suppsed to be.
 	CHK2(str[545] != 0, error(), free(str), 0);
 	CHK2(!valid_0(str, rd), error(), free(str), 0);
+
+	//counting nb of tetronimoes
 	n_blocks = (rd + 1) / 21;
+
+	//in str, tetronimoes are seperated by '\n', changing it to 'n'
 	change_end(&str, rd);
+
+	//transfering str to array of tetri	
 	CHK2((trm_arr = ft_strsplit(str, 'n')) == 0, error(), free(str), 0);
+
+	//trim '\n' in tetri
+
 	trim_newline(trm_arr);
+
 	CHK3(!valid_pattern(trm_arr, n_blocks), error(), ft_trm_arrdel(trm_arr), free(str), 0);
+
+	//transfering "#" to alphabet like "A", "B"
 	rename_block(trm_arr);
+
 	solve(trm_arr, n_blocks);
 	ft_trm_arrdel(trm_arr);
 	free(str);
