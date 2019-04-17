@@ -46,19 +46,19 @@ char	**new_map(size_t size)
 	char	**map;
 
 	n_size = size + 3;
-	CHK((map = (char **)malloc(sizeof(char*) * (n_size + 1))) == 0, 0);
+	IFA((map = (char **)malloc(sizeof(char*) * (n_size + 1))) == 0, 0);
 	ft_bzero(map, n_size);
 	i = -1;
 	while (++i < (int)size)
 	{
-		CHK1((map[i] = ft_strnew(n_size)) == 0, delete_map(map), 0);
+		IFA1((map[i] = ft_strnew(n_size)) == 0, delete_map(map), 0);
 		j = -1;
 		while (++j < (int)size)
 			map[i][j] = '.';
 	}
 	while (i < n_size)
 	{
-		CHK1((map[i] = ft_strnew(n_size)) == 0, delete_map(map), 0);
+		IFA1((map[i] = ft_strnew(n_size)) == 0, delete_map(map), 0);
 		++i;
 	}
 	map[i] = 0;

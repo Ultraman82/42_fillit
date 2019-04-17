@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chjeong <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jkalia <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 15:27:42 by chjeong           #+#    #+#             */
-/*   Updated: 2019/04/16 15:27:45 by chjeong          ###   ########.fr       */
+/*   Created: 2017/03/05 12:03:05 by jkalia            #+#    #+#             */
+/*   Updated: 2017/03/16 10:39:26 by jkalia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 # define FILLIT_H
 # include <stdlib.h>
 # include "libft.h"
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <fcntl.h>
+
 
 # define BUFFER_SIZE 546
 # define HASHDOT(a) (a == '#' || a == '.')
@@ -26,11 +23,11 @@
 # define DOT(a) (a == '.')
 # define DO2(a, b) {a; b;}
 # define DO3(a, b, c) {a; b; c;}
-# define CHK(a, b) if(a){return(b);}
-# define CHK1(a, b, c) if(a){b; return(c);}
-# define CHK2(a, b, c, d) if(a){b; c; return(d);}
-# define CHK3(a, b, c, d, e) if(a){b; c; d; return(e);}
-# define CHK4(a, b, c, d, e, f) if(a){b; c; d; e; return(f);}
+# define IFA(a, b) if(a){return(b);}
+# define IFA1(a, b, c) if(a){b; return(c);}
+# define IFA2(a, b, c, d) if(a){b; c; return(d);}
+# define IFA3(a, b, c, d, e) if(a){b; c; d; return(e);}
+# define IFA4(a, b, c, d, e, f) if(a){b; c; d; e; return(f);}
 
 typedef	enum	e_bool
 {

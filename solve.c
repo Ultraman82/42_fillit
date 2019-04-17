@@ -13,7 +13,6 @@
 
 #include "fillit.h"
 
-//removing tetronmino from the map when its wrong
 void	remove_trm(char **map, char *trm, int col, int row)
 {
 	char	ch;
@@ -38,7 +37,7 @@ void	remove_trm(char **map, char *trm, int col, int row)
 		row++;
 	}
 }
-//place tetromino
+
 void	place(char **map, char *trm, int col, int row)
 {
 	size_t	i;
@@ -64,7 +63,6 @@ void	place(char **map, char *trm, int col, int row)
 	}
 }
 
-//checking the point is safe to put down the tetrominoe
 t_bool	is_safe(char **map, char *trm, int col, int row)
 {
 	size_t	i;
@@ -74,7 +72,7 @@ t_bool	is_safe(char **map, char *trm, int col, int row)
 	i = 0;
 	while (*trm == '.')
 		DO3(i++, trm++, init_col--);
-	CHK(init_col < 0, false);
+	IFA(init_col < 0, false);
 	while (*trm != '\0')
 	{
 		if (i > 3)
@@ -85,8 +83,8 @@ t_bool	is_safe(char **map, char *trm, int col, int row)
 		}
 		if (*trm == '.')
 			DO2(i++, col++);
-		CHK(!DOT(map[row][col]) && map[row][col] && !DOT(*trm), false);
-		CHK(!map[row][col] && !DOT(*trm), false);
+		IFA(!DOT(map[row][col]) && map[row][col] && !DOT(*trm), false);
+		IFA(!map[row][col] && !DOT(*trm), false);
 		if (DOT(map[row][col]) && !DOT(*trm))
 			DO2(col++, i++);
 		trm++;
@@ -94,26 +92,24 @@ t_bool	is_safe(char **map, char *trm, int col, int row)
 	return (true);
 }
 
-//solving function
 int		solve(char **tbl, size_t blocks)
 {
 	char	**map;
 	size_t	map_size;
 
 	map_size = initial_board_size(blocks);
-	CHK1((map = new_map(map_size)) == 0, error(), 0);
+	IFA1((map = new_map(map_size)) == 0, error(), 0);
 	while (recursion(tbl, map, 0, 0) == false)
 	{
 		map_size++;
 		delete_map(map);
-		CHK1((map = new_map(map_size)) == 0, error(), 0);
+		IFA1((map = new_map(map_size)) == 0, error(), 0);
 	}
 	print_map(map, map_size);
 	delete_map(map);
 	return (0);
 }
 
-//resursion part
 t_bool	recursion(char **tbl, char **map, int col, int row)
 {
 	if (!*tbl)
